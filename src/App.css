@@ -33,7 +33,7 @@
 .commands {
   min-width: 300px;
   min-height: 420px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .editor {

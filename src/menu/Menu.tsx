@@ -20,8 +20,8 @@ function NumericParam({ name, appendParam, removeParam, mayApply, applied }: Par
 
   return applied ? (
     <span className="value-applied">
-      <label htmlFor="input">{name}: </label>
-      <input readOnly type="number" min={0} value={value} />
+      <label htmlFor={name}>{name}: </label>
+      <input readOnly type="number" name={name} min={0} value={value} />
       <button
         onClick={() => {
           removeParam([name]);
@@ -32,9 +32,10 @@ function NumericParam({ name, appendParam, removeParam, mayApply, applied }: Par
     </span>
   ) : (
     <span className="value-unapplied">
-      <label htmlFor="input">{name}: </label>
+      <label htmlFor={name}>{name}: </label>
       <input
         type="number"
+        name={name}
         min={0}
         value={value}
         onChange={(ev) => {
@@ -59,8 +60,8 @@ function ColorParam({ name, appendParam, removeParam, mayApply, applied }: Param
   
   return applied ? (
     <span className="value-applied">
-      <label htmlFor="input">{name}: </label>
-      <input readOnly type="text" value={value} />
+      <label htmlFor={name}>{name}: </label>
+      <input readOnly type="text" name={name} value={value} />
       <button
         onClick={() => {
           removeParam([name]);
@@ -71,9 +72,9 @@ function ColorParam({ name, appendParam, removeParam, mayApply, applied }: Param
     </span>
   ) : (
     <span className="value-unapplied">
-      <label htmlFor="input">{name}: </label>
+      <label htmlFor={name}>{name}: </label>
       <input
-        name="input"
+        name={name}
         type="text"
         value={value}
         onChange={(ev) => {
@@ -89,6 +90,25 @@ function ColorParam({ name, appendParam, removeParam, mayApply, applied }: Param
         }}
       >
         Apply
+      </button>
+    </span>
+  );
+}
+
+function BooleanParam({ name, appendParam, removeParam, mayApply, applied }: ParamProps) {
+  
+  const [value, setValue] = useState(false);
+
+  return (
+    <span className="value-applied">
+      <label htmlFor={name}>{name}: </label>
+      <input  type="checkbox" name={name} checked={value} onChange={ (ev) => setValue(ev.target.checked) } />
+      <button
+        onClick={() => {
+          applied ? removeParam([name]) : appendParam(name, value ? "true" : "false");
+        }}
+      >
+        { applied ? "Remove" : "Apply" }
       </button>
     </span>
   );
@@ -119,8 +139,17 @@ function Collapsable({ section, open, setOpen, children }: CollapsableProps) {
 }
 
 export function Menu({ appendParam, removeParam }: MenuProps) {
-  const [open, setOpen] = useState({ rotate: false });
-  const [applied, setApplied] = useState({ rotate: false, "rotate.background": false })
+  const [open, setOpen] = useState({ 
+    rotate: false, 
+    flip: false,
+    flop: false
+  });
+  const [applied, setApplied] = useState({ 
+    rotate: false, 
+    "rotate.background": false,
+    flip: false,
+    flop: false 
+  })
 
   return (
     <nav>
@@ -152,6 +181,36 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
           mayApply={applied.rotate}
           applied={applied["rotate.background"]}
         ></ColorParam>
+      </Collapsable>
+      <Collapsable section="Flip" open={open.flip} setOpen={(val) => setOpen({...open, flip: val })}>
+        <BooleanParam
+          name="flip"
+          appendParam={(param, value) => {
+            appendParam(param, value)
+            setApplied({...applied, flip: true})
+          }}
+          removeParam={(param) => {
+            removeParam([ ...param ])
+            setApplied({...applied, flip: false })
+          }}
+          mayApply
+          applied={applied.flip}
+        ></BooleanParam>
+      </Collapsable>
+      <Collapsable section="Flop" open={open.flop} setOpen={(val) => setOpen({...open, flop: val })}>
+        <BooleanParam
+          name="flop"
+          appendParam={(param, value) => {
+            appendParam(param, value)
+            setApplied({...applied, flop: true})
+          }}
+          removeParam={(param) => {
+            removeParam([ ...param ])
+            setApplied({...applied, flop: false })
+          }}
+          mayApply
+          applied={applied.flop}
+        ></BooleanParam>
       </Collapsable>
     </nav>
   );
