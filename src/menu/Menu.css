@@ -1,0 +1,57 @@
+.collapsable {
+    display: flex;
+    flex-direction: column;   
+}
+
+.collapsable .header {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+}
+
+.collapsable .section {
+    font-size: medium;
+}
+
+.collapsable .icon {
+    font-size: medium;
+    cursor: pointer;
+}
+
+.value-applied label {
+    font-size: small;
+    min-width: 120px;
+    text-align: end;
+}
+
+.value-unapplied label {
+    font-size: small;
+    min-width: 120px;
+    text-align: end;
+}
+
+.value-applied input {
+    max-width: 80px;
+}
+
+.value-unapplied input {
+    max-width: 80px;
+}
+
+.value-applied {
+    display: flex;
+    justify-content: space-between;
+}
+
+.value-unapplied {
+    display: flex;
+    justify-content: space-between;
+}
+
+.value-applied button {
+    min-width: 80px;
+}
+
+.value-unapplied button {
+    min-width: 80px;
+}
