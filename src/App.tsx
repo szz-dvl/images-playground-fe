@@ -80,12 +80,15 @@ function App() {
   return (
     <div className="App">
       <div className="App-main">
+        <h2 className="title"><a href="https://www.npmjs.com/package/@szz_dev/images">@szz_dev/images </a></h2>
+        <p className="url"> {image} </p>
         <div className="editor">
           <div className="commands">
             <Menu appendParam={appendParam} removeParam={removeParam}></Menu>
           </div>
-          <img src={image} alt="file" height={height} width={width} />
+          <img src={image} alt="Invalid parameters" height={height} width={width} />
           <div className="others">
+            <p> Activity: </p>
             <img src={others} alt="file" height={420} width={300} />
           </div>
         </div>

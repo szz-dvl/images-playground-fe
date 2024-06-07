@@ -265,6 +265,20 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
     gamma: false,
     negate: false,
     normalise: false,
+    clahe: false,
+    threshold: false,
+    convolve: false,
+    linear: false,
+    recomb: false,
+    modulate: false,
+    tint: false,
+    grayscale: false,
+    pipelineColorSpace: false,
+    toColorspace: false,
+    bandbool: false,
+    extractChannel: false,
+    removeAlpha: false,
+    ensureAlpha: false
   });
   const [applied, setApplied] = useState<Record<string, boolean>>({
     rotate: false,
@@ -295,7 +309,32 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
     "negate.alpha": false,
     normalise: false,
     "normalise.upper": false,
-    "normalise.lower": false
+    "normalise.lower": false,
+    "clahe.width": false,
+    "clahe.height": false,
+    "clahe.maxSlope": false,
+    "convolve.width": false,
+    "convolve.height": false,
+    "convolve.maxSlope": false,
+    threshold: false,
+    "threshold.grayscale": false,
+    "linear.a": false,
+    "linear.b": false,
+    "recomb.0": false,
+    "recomb.1": false,
+    "recomb.2": false,
+    "modulate.saturation": false,
+    "modulate.brightness": false,
+    "modulate.hue": false,
+    "modulate.lightness": false,
+    tint: false,
+    grayscale: false,
+    pipelineColorSpace: false,
+    toColorspace: false,
+    bandbool: false,
+    extractChannel: false,
+    removeAlpha: false,
+    ensureAlpha: false
   });
 
   return (
@@ -799,15 +838,458 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
               setApplied({ ...applied, [key]: true });
             }}
             removeParam={(param) => {
-              removeParam([...param ]);
+              removeParam([...param]);
               setApplied({
                 ...applied,
+                [key]: false,
               });
             }}
             mayApply={applied.normalise}
             applied={applied[key]}
           />
         ))}
+      </Collapsable>
+      <Collapsable
+        section="CLAHE"
+        open={open.clahe}
+        setOpen={(val) => setOpen({ ...open, clahe: val })}
+      >
+        {["clahe.width", "clahe.height", "clahe.maxSlope"].map((key) => (
+          <NumericParam
+            name={key}
+            appendParam={(param, value) => {
+              appendParam(param, value);
+              setApplied({ ...applied, [key]: true });
+            }}
+            removeParam={(param) => {
+              removeParam([...param]);
+              setApplied({
+                ...applied,
+                [key]: false,
+              });
+            }}
+            mayApply
+            required={key !== "clahe.maxSlope"}
+            applied={applied[key]}
+          />
+        ))}
+      </Collapsable>
+      <Collapsable
+        section="Convolve"
+        open={open.convolve}
+        setOpen={(val) => setOpen({ ...open, convolve: val })}
+      >
+        <ArrayParam
+          name="convolve.kernel"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "convolve.kernel": true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              "convolve.kernel": false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied["convolve.kernel"]}
+        />
+        {[
+          "convolve.width",
+          "convolve.height",
+          "convolve.scale",
+          "convolve.offset",
+        ].map((key) => (
+          <NumericParam
+            name={key}
+            appendParam={(param, value) => {
+              appendParam(param, value);
+              setApplied({ ...applied, [key]: true });
+            }}
+            removeParam={(param) => {
+              removeParam([...param]);
+              setApplied({
+                ...applied,
+                [key]: false,
+              });
+            }}
+            mayApply
+            required={["convolve.height", "convolve.width"].includes(key)}
+            applied={applied[key]}
+          />
+        ))}
+      </Collapsable>
+      <Collapsable
+        section="Threshold"
+        open={open.threshold}
+        setOpen={(val) => setOpen({ ...open, threshold: val })}
+      >
+        <NumericParam
+          name="threshold"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, threshold: true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              threshold: false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied.threshold}
+        />
+        <BooleanParam
+          name="threshold.grayscale"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "threshold.grayscale": true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              "threshold.grayscale": false,
+            });
+          }}
+          mayApply={applied.threshold}
+          applied={applied["threshold.grayscale"]}
+        />
+      </Collapsable>
+      <Collapsable
+        section="Linear"
+        open={open.linear}
+        setOpen={(val) => setOpen({ ...open, linear: val })}
+      >
+        <ArrayParam
+          name="linear.a"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "linear.a": true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              "linear.a": false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied["linear.a"]}
+        />
+        <ArrayParam
+          name="linear.b"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "linear.b": true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              "linear.b": false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied["linear.b"]}
+        />
+      </Collapsable>
+      <Collapsable
+        section="Recomb"
+        open={open.recomb}
+        setOpen={(val) => setOpen({ ...open, recomb: val })}
+      >
+        {["recomb.0", "recomb.1", "recomb.2"].map((key) => (
+          <ArrayParam
+            name={key}
+            appendParam={(param, value) => {
+              appendParam(param, value);
+              setApplied({ ...applied, [key]: true });
+            }}
+            removeParam={(param) => {
+              removeParam([...param]);
+              setApplied({
+                ...applied,
+                [key]: false,
+              });
+            }}
+            mayApply
+            required
+            applied={applied[key]}
+          />
+        ))}
+      </Collapsable>
+      <Collapsable
+        section="Modulate"
+        open={open.modulate}
+        setOpen={(val) => setOpen({ ...open, modulate: val })}
+      >
+        {[
+          "modulate.saturation",
+          "modulate.brightness",
+          "modulate.hue",
+          "modulate.lightness",
+        ].map((key) => (
+          <NumericParam
+            name={key}
+            appendParam={(param, value) => {
+              appendParam(param, value);
+              setApplied({ ...applied, [key]: true });
+            }}
+            removeParam={(param) => {
+              removeParam([...param]);
+              setApplied({
+                ...applied,
+                [key]: false,
+              });
+            }}
+            mayApply
+            applied={applied[key]}
+          />
+        ))}
+      </Collapsable>
+      <Collapsable
+        section="Tint"
+        open={open.tint}
+        setOpen={(val) => setOpen({ ...open, tint: val })}
+      >
+        <ColorParam
+          name="tint"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, tint: true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              tint: false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied.tint}
+        />
+      </Collapsable>
+      <Collapsable
+        section="Grayscale"
+        open={open.grayscale}
+        setOpen={(val) => setOpen({ ...open, grayscale: val })}
+      >
+        <BooleanParam
+          name="grayscale"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, grayscale: true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              grayscale: false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied.grayscale}
+        />
+      </Collapsable>
+      <Collapsable
+        section="PipelineColorspace"
+        open={open.pipelineColorspace}
+        setOpen={(val) => setOpen({ ...open, pipelineColorspace: val })}
+      >
+        <EnumParam
+          name="pipelineColorspace"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, pipelineColorspace: true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              pipelineColorspace: false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied.pipelineColorspace}
+          options={[
+            "multiband",
+            "b-w",
+            "histogram",
+            "xyz",
+            "lab",
+            "cmyk",
+            "labq",
+            "rgb",
+            "cmc",
+            "lch",
+            "labs",
+            "srgb",
+            "yxy",
+            "fourier",
+            "rgb16",
+            "grey16",
+            "matrix",
+            "scrgb",
+            "hsv",
+          ]}
+        />
+      </Collapsable>
+      <Collapsable
+        section="ToColorspace"
+        open={open.toColorspace}
+        setOpen={(val) => setOpen({ ...open, toColorspace: val })}
+      >
+        <EnumParam
+          name="toColorspace"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, toColorspace: true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              toColorspace: false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied.toColorspace}
+          options={[
+            "multiband",
+            "b-w",
+            "histogram",
+            "xyz",
+            "lab",
+            "cmyk",
+            "labq",
+            "rgb",
+            "cmc",
+            "lch",
+            "labs",
+            "srgb",
+            "yxy",
+            "fourier",
+            "rgb16",
+            "grey16",
+            "matrix",
+            "scrgb",
+            "hsv",
+          ]}
+        />
+      </Collapsable>
+      <Collapsable
+        section="RemoveAlpha"
+        open={open.removeAlpha}
+        setOpen={(val) => setOpen({ ...open, removeAlpha: val })}
+      >
+        <BooleanParam
+          name="removeAlpha"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, removeAlpha: true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              removeAlpha: false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied.removeAlpha}
+        />
+      </Collapsable>
+      <Collapsable
+        section="EnsureAlpha"
+        open={open.ensureAlpha}
+        setOpen={(val) => setOpen({ ...open, ensureAlpha: val })}
+      >
+        <NumericParam
+          name="ensureAlpha"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, ensureAlpha: true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              ensureAlpha: false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied.ensureAlpha}
+        />
+      </Collapsable>
+      <Collapsable
+        section="ExtractChannel"
+        open={open.extractChannel}
+        setOpen={(val) => setOpen({ ...open, extractChannel: val })}
+      >
+        <EnumParam
+          name="extractChannel"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, extractChannel: true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              extractChannel: false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied.extractChannel}
+          options={[
+            "red",
+            "green",
+            "blue",
+            "alpha"
+          ]}
+        />
+      </Collapsable>
+      <Collapsable
+        section="Bandbool"
+        open={open.bandbool}
+        setOpen={(val) => setOpen({ ...open, bandbool: val })}
+      >
+        <EnumParam
+          name="bandbool"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, bandbool: true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              bandbool: false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied.bandbool}
+          options={[
+            "and",
+            "or",
+            "eor"
+          ]}
+        />
       </Collapsable>
     </nav>
   );

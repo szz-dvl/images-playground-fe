@@ -24,6 +24,15 @@
   color: white;
 }
 
+.App-main .title { 
+  padding: 0;
+  margin: 10px auto;
+}
+
+.App-main .url { 
+  font-size: small;
+}
+
 .upload-wrapper {
   display: flex;
   justify-content: space-between;
@@ -31,9 +40,12 @@
 }
 
 .commands {
-  min-width: 300px;
+  min-width: 340px;
   min-height: 420px;
   /* border: 1px solid red; */
+  overflow-y: auto;
+  max-height: 80vh;
+  padding-right: 15px;
 }
 
 .editor {
