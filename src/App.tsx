@@ -58,7 +58,7 @@ function App() {
     }
   };
 
-  const appendParam = (name: string, value: string) => {
+  const appendParam = (name: string, value: string | Array<string>) => {
     const rawQuery = image.split("?").pop()!;
     const query = parse(rawQuery);
     query[name] = value;

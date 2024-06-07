@@ -38,6 +38,14 @@
     max-width: 80px;
 }
 
+.value-applied select {
+    min-width: 80px;
+}
+
+.value-unapplied select {
+    min-width: 80px;
+}
+
 .value-applied {
     display: flex;
     justify-content: space-between;
