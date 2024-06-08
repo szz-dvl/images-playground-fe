@@ -40,7 +40,7 @@
 }
 
 .commands {
-  min-width: 340px;
+  min-width: 360px;
   min-height: 420px;
   /* border: 1px solid red; */
   overflow-y: auto;

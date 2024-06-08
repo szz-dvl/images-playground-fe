@@ -20,30 +20,30 @@
 
 .value-applied label {
     font-size: small;
-    min-width: 120px;
+    min-width: 160px;
     text-align: end;
 }
 
 .value-unapplied label {
     font-size: small;
-    min-width: 120px;
+    min-width: 160px;
     text-align: end;
 }
 
 .value-applied input {
-    max-width: 80px;
+    max-width: 100px;
 }
 
 .value-unapplied input {
-    max-width: 80px;
+    max-width: 100px;
 }
 
 .value-applied select {
-    min-width: 80px;
+    min-width: 100px;
 }
 
 .value-unapplied select {
-    min-width: 80px;
+    min-width: 100px;
 }
 
 .value-applied {

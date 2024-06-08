@@ -254,6 +254,7 @@ function Collapsable({ section, open, setOpen, children }: CollapsableProps) {
 export function Menu({ appendParam, removeParam }: MenuProps) {
   const [open, setOpen] = useState<Record<string, boolean>>({
     rotate: false,
+    rotateAfter: false,
     flip: false,
     flop: false,
     affine: false,
@@ -278,11 +279,18 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
     bandbool: false,
     extractChannel: false,
     removeAlpha: false,
-    ensureAlpha: false
+    ensureAlpha: false,
+    resize: false,
+    extend: false,
+    extract: false,
+    extractAfter: false,
+    trim: false,
   });
   const [applied, setApplied] = useState<Record<string, boolean>>({
     rotate: false,
     "rotate.background": false,
+    rotateAfter: false,
+    "rotateAfter.background": false,
     flip: false,
     flop: false,
     affine: false,
@@ -334,11 +342,347 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
     bandbool: false,
     extractChannel: false,
     removeAlpha: false,
-    ensureAlpha: false
+    ensureAlpha: false,
+    "resize.width": false,
+    "resize.height": false,
+    "resize.fit": false,
+    "resize.position": false,
+    "resize.background": false,
+    "resize.kernel": false,
+    "resize.withoutEnlargement": false,
+    "resize.withoutReduction": false,
+    "resize.fastShrinkOnLoad": false,
+    extend: false,
+    "extend.top": false,
+    "extend.left": false,
+    "extend.bottom": false,
+    "extend.right": false,
+    "extend.extendWith": false,
+    "extend.background": false,
+    "extract.top": false,
+    "extract.left": false,
+    "extract.width": false,
+    "extract.height": false,
+    "extractAfter.top": false,
+    "extractAfter.left": false,
+    "extractAfter.width": false,
+    "extractAfter.height": false,
+    "trim.background": false,
+    "trim.threshold": false,
+    "trim.lineArt": false,
   });
 
   return (
     <nav>
+      <Collapsable
+        section="Resize"
+        open={open.resize}
+        setOpen={(val) => setOpen({ ...open, resize: val })}
+      >
+        {["resize.width", "resize.height"].map((key) => (
+          <NumericParam
+            name={key}
+            appendParam={(param, value) => {
+              appendParam(param, value);
+              setApplied({ ...applied, [key]: true });
+            }}
+            removeParam={(param) => {
+              removeParam([...param]);
+              setApplied({
+                ...applied,
+                [key]: false,
+              });
+            }}
+            mayApply
+            applied={applied[key]}
+          />
+        ))}
+        <EnumParam
+          name="resize.fit"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "resize.fit": true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              "resize.fit": false,
+            });
+          }}
+          mayApply
+          applied={applied["resize.fit"]}
+          options={["cover", "contain", "fill", "inside", "outside"]}
+        />
+        <EnumParam
+          name="resize.position"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "resize.position": true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              "resize.position": false,
+            });
+          }}
+          mayApply
+          applied={applied["resize.position"]}
+          options={[
+            "center",
+            "top",
+            "right top",
+            "right",
+            "right bottom",
+            "bottom",
+            "left",
+            "left bottom",
+            "left top",
+          ]}
+        />
+        <ColorParam
+          name="resize.background"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "resize.background": true });
+          }}
+          removeParam={(param) => {
+            removeParam(param);
+            setApplied({ ...applied, "resize.background": false });
+          }}
+          mayApply
+          applied={applied["resize.background"]}
+        />
+        <EnumParam
+          name="resize.kernel"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "resize.kernel": true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              "resize.kernel": false,
+            });
+          }}
+          mayApply
+          applied={applied["resize.kernel"]}
+          options={[
+            "nearest",
+            "linear",
+            "cubic",
+            "mitchell",
+            "lanczos2",
+            "lanczos3",
+          ]}
+        />
+        {[
+          "resize.withoutEnlargement",
+          "resize.withoutReduction",
+          "resize.fastShrinkOnLoad",
+        ].map((key) => (
+          <BooleanParam
+            name={key}
+            appendParam={(param, value) => {
+              appendParam(param, value);
+              setApplied({ ...applied, [key]: true });
+            }}
+            removeParam={(param) => {
+              removeParam(param);
+              setApplied({ ...applied, [key]: false });
+            }}
+            mayApply
+            applied={applied[key]}
+          />
+        ))}
+      </Collapsable>
+      <Collapsable
+        section="Extend"
+        open={open.extend}
+        setOpen={(val) => setOpen({ ...open, extend: val })}
+      >
+        <NumericParam
+          name="extend"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, extend: true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              extend: false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied.extend}
+        />
+
+        {["extend.top", "extend.left", "extend.bottom", "extend.right"].map(
+          (key) => (
+            <NumericParam
+              name={key}
+              appendParam={(param, value) => {
+                appendParam(param, value);
+                setApplied({ ...applied, [key]: true });
+              }}
+              removeParam={(param) => {
+                removeParam([...param]);
+                setApplied({
+                  ...applied,
+                  [key]: false,
+                });
+              }}
+              mayApply
+              applied={applied[key]}
+            />
+          )
+        )}
+        <EnumParam
+          name="extend.extendWith"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "extend.extendWith": true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              "extend.extendWith": false,
+            });
+          }}
+          mayApply
+          applied={applied["extend.extendWith"]}
+          options={["background", "copy", "repeat", "mirror"]}
+        />
+        <ColorParam
+          name="extend.background"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "extend.background": true });
+          }}
+          removeParam={(param) => {
+            removeParam(param);
+            setApplied({ ...applied, "extend.background": false });
+          }}
+          mayApply
+          applied={applied["extend.background"]}
+        />
+      </Collapsable>
+      <Collapsable
+        section="Extract"
+        open={open.extract}
+        setOpen={(val) => setOpen({ ...open, extract: val })}
+      >
+        {["extract.top", "extract.left", "extract.width", "extract.height"].map(
+          (key) => (
+            <NumericParam
+              name={key}
+              appendParam={(param, value) => {
+                appendParam(param, value);
+                setApplied({ ...applied, [key]: true });
+              }}
+              removeParam={(param) => {
+                removeParam([...param]);
+                setApplied({
+                  ...applied,
+                  [key]: false,
+                });
+              }}
+              mayApply
+              required
+              applied={applied[key]}
+            />
+          )
+        )}
+      </Collapsable>
+      <Collapsable
+        section="ExtractAfter"
+        open={open.extractAfter}
+        setOpen={(val) => setOpen({ ...open, extractAfter: val })}
+      >
+        {[
+          "extractAfter.top",
+          "extractAfter.left",
+          "extractAfter.width",
+          "extractAfter.height",
+        ].map((key) => (
+          <NumericParam
+            name={key}
+            appendParam={(param, value) => {
+              appendParam(param, value);
+              setApplied({ ...applied, [key]: true });
+            }}
+            removeParam={(param) => {
+              removeParam([...param]);
+              setApplied({
+                ...applied,
+                [key]: false,
+              });
+            }}
+            mayApply
+            required
+            applied={applied[key]}
+          />
+        ))}
+      </Collapsable>
+      <Collapsable
+        section="Trim"
+        open={open.trim}
+        setOpen={(val) => setOpen({ ...open, trim: val })}
+      >
+        <ColorParam
+          name="trim.background"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "trim.background": true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              "trim.background": false,
+            });
+          }}
+          mayApply
+          applied={applied["trim.background"]}
+        />
+        <NumericParam
+          name="trim.threshold"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "trim.threshold": true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              "trim.threshold": false,
+            });
+          }}
+          mayApply
+          applied={applied["trim.threshold"]}
+        />
+        <BooleanParam
+          name="trim.lineArt"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "trim.lineArt": true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param]);
+            setApplied({
+              ...applied,
+              "trim.lineArt": false,
+            });
+          }}
+          mayApply
+          applied={applied["trim.lineArt"]}
+        />
+      </Collapsable>
       <Collapsable
         section="Rotate"
         open={open.rotate}
@@ -374,6 +718,43 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
           }}
           mayApply={applied.rotate}
           applied={applied["rotate.background"]}
+        />
+      </Collapsable>
+      <Collapsable
+        section="RotateAfter"
+        open={open.rotateAfter}
+        setOpen={(val) => setOpen({ ...open, rotateAfter: val })}
+      >
+        <NumericParam
+          name="rotateAfter"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, rotateAfter: true });
+          }}
+          removeParam={(param) => {
+            removeParam([...param, "rotateAfter.background"]);
+            setApplied({
+              ...applied,
+              rotateAfter: false,
+              "rotateAfter.background": false,
+            });
+          }}
+          mayApply
+          required
+          applied={applied.rotateAfter}
+        />
+        <ColorParam
+          name="rotateAfter.background"
+          appendParam={(param, value) => {
+            appendParam(param, value);
+            setApplied({ ...applied, "rotateAfter.background": true });
+          }}
+          removeParam={(param) => {
+            removeParam(param);
+            setApplied({ ...applied, "rotateAfter.background": false });
+          }}
+          mayApply={applied.rotateAfter}
+          applied={applied["rotateAfter.background"]}
         />
       </Collapsable>
       <Collapsable
@@ -1255,12 +1636,7 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
           mayApply
           required
           applied={applied.extractChannel}
-          options={[
-            "red",
-            "green",
-            "blue",
-            "alpha"
-          ]}
+          options={["red", "green", "blue", "alpha"]}
         />
       </Collapsable>
       <Collapsable
@@ -1284,11 +1660,7 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
           mayApply
           required
           applied={applied.bandbool}
-          options={[
-            "and",
-            "or",
-            "eor"
-          ]}
+          options={["and", "or", "eor"]}
         />
       </Collapsable>
     </nav>
