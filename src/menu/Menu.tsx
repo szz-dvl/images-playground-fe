@@ -30,7 +30,6 @@ import {
   EnsureAlpha,
   ExtractChannel,
   Bandbool,
-
 } from ".";
 import "./Menu.css";
 

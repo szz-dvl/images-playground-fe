@@ -1,46 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./App.css";
-import SessionService from "./services/session";
 import { Menu } from "./menu/Menu";
 import { stringify, parse } from "querystring";
-
-const noActivity = `http://localhost:3000/image/${300}x${420}/blank.png?text.text=No activity&text.width=60&text.height=60&text.rgba=true&resize.fit=contain`;
 
 function App() {
   const [width, height] = [1140, 640];
   const [image, setImage] = useState(
-    `http://localhost:3000/image/${width}x${height}/blank.png?text.text=No image uploaded ____\u2193____&text.width=150&text.height=150&text.rgba=true&resize.fit=contain&`
+    `http://localhost:3000/image/${width}x${height}/blank.png?text.text=No image uploaded ____\u2193____&text.width=550&text.height=550&text.rgba=true&resize.fit=fill`
   );
-  const [to, setTo] = useState<NodeJS.Timer | null>(null);
-  const [others, setOthers] = useState(noActivity);
+  
   const fileRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    SessionService.subscribeToSocket("main", async (last) => {
-      if (to) clearInterval(to);
-  
-      setTo(
-        setInterval(() => {
-          if (!last.length) {
-            if (others !== noActivity) {
-              setOthers(
-                noActivity
-              );
-            }
-            return;
-          }
-  
-          const idx = Math.floor(Math.random() * (last.length - 1));
-          setOthers(`http://localhost:3000/image${last[idx]}`);
-  
-        }, (3 + Math.random() * 5) * 1000)
-      );
-    });  
-    return () => {
-      SessionService.unSubscribeFromSocket("main");
-    };
-  });
-  
+ 
   const sendFile = async () => {
     if (fileRef.current && fileRef.current.files) {
       const file = fileRef.current.files[0];
@@ -79,18 +49,18 @@ function App() {
 
   return (
     <div className="App">
+      <header className="App-header">
+        <p><a href="https://www.npmjs.com/package/@szz_dev/images">@szz_dev/images </a></p>
+        <p> Playground </p>
+        <span></span>
+      </header>
       <div className="App-main">
-        <h2 className="title"><a href="https://www.npmjs.com/package/@szz_dev/images">@szz_dev/images </a></h2>
         <p className="url"> {image} </p>
         <div className="editor">
           <div className="commands">
             <Menu appendParam={appendParam} removeParam={removeParam}></Menu>
           </div>
           <img src={image} alt="Invalid parameters" height={height} width={width} />
-          <div className="others">
-            <p> Activity: </p>
-            <img src={others} alt="file" height={420} width={300} />
-          </div>
         </div>
         <div className="upload-wrapper">
           <input type="file" name="Upload" ref={fileRef} />

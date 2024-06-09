@@ -1,12 +1,16 @@
 .collapsable {
     display: flex;
-    flex-direction: column;   
+    flex-direction: column;
+    padding-bottom: 10px;
+    
 }
 
 .collapsable .header {
     display: flex;
     justify-content: space-between;
     max-width: 100%;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 10px;
 }
 
 .collapsable .section {
@@ -20,13 +24,13 @@
 
 .value-applied label {
     font-size: small;
-    min-width: 160px;
+    min-width: 200px;
     text-align: end;
 }
 
 .value-unapplied label {
     font-size: small;
-    min-width: 160px;
+    min-width: 200px;
     text-align: end;
 }
 
