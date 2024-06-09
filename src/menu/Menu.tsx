@@ -30,6 +30,8 @@ import {
   EnsureAlpha,
   ExtractChannel,
   Bandbool,
+  Text,
+  Create
 } from ".";
 import "./Menu.css";
 
@@ -72,6 +74,8 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
     extract: false,
     extractAfter: false,
     trim: false,
+    text: false,
+    create: false,
   });
   const [applied, setApplied] = useState<Record<string, boolean>>({
     rotate: false,
@@ -157,6 +161,24 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
     "trim.background": false,
     "trim.threshold": false,
     "trim.lineArt": false,
+    "text.text": false,
+    "text.font": false,
+    "text.fontfile": false,
+    "text.width": false,
+    "text.height": false,
+    "text.align": false,
+    "text.justify": false,
+    "text.dpi": false,
+    "text.spacing": false,
+    "text.rgba": false,
+    "text.wrap": false,
+    "create.width": false,
+    "create.height": false,
+    "create.channels": false,
+    "create.noise.mean": false,
+    "create.noise.sigma": false,
+    "create.noise.type": false,
+    "create.background": false,
   });
 
   return (
@@ -193,6 +215,8 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
       <EnsureAlpha open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
       <ExtractChannel open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
       <Bandbool open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
+      <Text open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
+      <Create open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
     </nav>
   );
 }

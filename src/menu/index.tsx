@@ -113,6 +113,52 @@ export function ColorParam({
   );
 }
 
+export function StringParam({
+  name,
+  appendParam,
+  removeParam,
+  mayApply,
+  applied,
+  required,
+}: ParamProps) {
+  const [value, setValue] = useState("");
+
+  return applied ? (
+    <span className="value-applied">
+      <label htmlFor={name}>{required ? <b> {name} </b> : name}: </label>
+      <input readOnly type="text" name={name} value={value} />
+      <button
+        onClick={() => {
+          removeParam([name]);
+        }}
+      >
+        Remove
+      </button>
+    </span>
+  ) : (
+    <span className="value-unapplied">
+      <label htmlFor={name}>{required ? <b> {name} </b> : name}: </label>
+      <input
+        name={name}
+        type="text"
+        value={value}
+        onChange={(ev) => {
+          setValue(ev.target.value);
+        }}
+      />
+      <button
+        onClick={() => {
+          if (mayApply) {
+            appendParam(name, value);
+          }
+        }}
+      >
+        Apply
+      </button>
+    </span>
+  );
+}
+
 export type EnumParamProps = ParamProps & { options: Array<string> };
 
 export function EnumParam({
@@ -285,3 +331,5 @@ export { RemoveAlpha } from "./effects/removeAlpha";
 export { EnsureAlpha } from "./effects/ensureAlpha";
 export { ExtractChannel } from "./effects/extractChannel";
 export { Bandbool } from "./effects/bandbool";
+export { Text } from "./effects/text";
+export { Create } from "./effects/create";
