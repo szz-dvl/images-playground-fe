@@ -1,6 +1,6 @@
 import { Collapsable, EnumParam, SectionProps } from "..";
 
-export function PipelineColorspace({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function PipelineColorspace({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="PipelineColorspace"
         open={open.pipelineColorspace}
@@ -8,6 +8,7 @@ export function PipelineColorspace({ open, applied, appendParam, removeParam, se
     >
         <EnumParam
             name="pipelineColorspace"
+            current={values.pipelineColorspace}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, pipelineColorspace: true });

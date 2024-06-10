@@ -1,6 +1,6 @@
 import { ArrayParam, Collapsable, SectionProps } from "..";
 
-export function Gamma({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Gamma({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Gamma"
         open={open.gamma}
@@ -8,6 +8,7 @@ export function Gamma({ open, applied, appendParam, removeParam, setApplied, set
     >
         <ArrayParam
             name="gamma"
+            current={values.gamma}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, gamma: true });

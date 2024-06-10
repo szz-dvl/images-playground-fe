@@ -1,6 +1,6 @@
 import { Collapsable, NumericParam, SectionProps } from "..";
 
-export function EnsureAlpha({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function EnsureAlpha({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="EnsureAlpha"
         open={open.ensureAlpha}
@@ -8,6 +8,7 @@ export function EnsureAlpha({ open, applied, appendParam, removeParam, setApplie
     >
         <NumericParam
             name="ensureAlpha"
+            current={values.ensureAlpha}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, ensureAlpha: true });

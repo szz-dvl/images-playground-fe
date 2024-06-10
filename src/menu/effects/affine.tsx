@@ -1,6 +1,6 @@
 import { ArrayParam, Collapsable, ColorParam, EnumParam, NumericParam, SectionProps } from "..";
 
-export function Affine({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Affine({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Affine"
         open={open.affine}
@@ -8,6 +8,7 @@ export function Affine({ open, applied, appendParam, removeParam, setApplied, se
     >
         <ArrayParam
             name="affine"
+            current={values.affine}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, affine: true });
@@ -39,6 +40,7 @@ export function Affine({ open, applied, appendParam, removeParam, setApplied, se
         />
         <ColorParam
             name="affine.background"
+            current={values["affine.background"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "affine.background": true });
@@ -53,6 +55,7 @@ export function Affine({ open, applied, appendParam, removeParam, setApplied, se
         {["affine.idx", "affine.idy", "affine.odx", "affine.ody"].map(key =>
             <NumericParam
                 name={key}
+                current={values[key]}
                 appendParam={(param, value) => {
                     appendParam(param, value);
                     setApplied({ ...applied, [key]: true });
@@ -70,6 +73,7 @@ export function Affine({ open, applied, appendParam, removeParam, setApplied, se
         )}
         <EnumParam
             name="affine.interpolator"
+            current={values["affine.interpolator"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "affine.interpolator": true });

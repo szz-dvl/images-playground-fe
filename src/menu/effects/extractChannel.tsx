@@ -1,6 +1,6 @@
 import { Collapsable, EnumParam, SectionProps } from "..";
 
-export function ExtractChannel({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function ExtractChannel({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="ExtractChannel"
         open={open.extractChannel}
@@ -8,6 +8,7 @@ export function ExtractChannel({ open, applied, appendParam, removeParam, setApp
     >
         <EnumParam
             name="extractChannel"
+            current={values.extractChannel}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, extractChannel: true });

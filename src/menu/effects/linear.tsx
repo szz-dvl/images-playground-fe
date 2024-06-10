@@ -1,6 +1,6 @@
 import { ArrayParam, Collapsable, SectionProps } from "..";
 
-export function Linear({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Linear({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Linear"
         open={open.linear}
@@ -8,6 +8,7 @@ export function Linear({ open, applied, appendParam, removeParam, setApplied, se
     >
         <ArrayParam
             name="linear.a"
+            current={values["linear.a"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "linear.a": true });
@@ -25,6 +26,7 @@ export function Linear({ open, applied, appendParam, removeParam, setApplied, se
         />
         <ArrayParam
             name="linear.b"
+            current={values["linear.b"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "linear.b": true });

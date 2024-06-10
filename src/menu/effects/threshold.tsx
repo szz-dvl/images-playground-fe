@@ -1,6 +1,6 @@
 import { BooleanParam, Collapsable, NumericParam, SectionProps } from "..";
 
-export function Threshold({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Threshold({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Threshold"
         open={open.threshold}
@@ -8,6 +8,7 @@ export function Threshold({ open, applied, appendParam, removeParam, setApplied,
     >
         <NumericParam
             name="threshold"
+            current={values.threshold}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, threshold: true });
@@ -25,6 +26,7 @@ export function Threshold({ open, applied, appendParam, removeParam, setApplied,
         />
         <BooleanParam
             name="threshold.grayscale"
+            current={values["threshold.grayscale"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "threshold.grayscale": true });

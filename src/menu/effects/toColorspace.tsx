@@ -1,6 +1,6 @@
 import { Collapsable, EnumParam, SectionProps } from "..";
 
-export function ToColorspace({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function ToColorspace({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="ToColorspace"
         open={open.toColorspace}
@@ -8,6 +8,7 @@ export function ToColorspace({ open, applied, appendParam, removeParam, setAppli
     >
         <EnumParam
             name="toColorspace"
+            current={values.toColorspace}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, toColorspace: true });

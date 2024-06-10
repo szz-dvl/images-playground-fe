@@ -1,6 +1,6 @@
 import { Collapsable, ColorParam, SectionProps } from "..";
 
-export function Tint({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Tint({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Tint"
         open={open.tint}
@@ -8,6 +8,7 @@ export function Tint({ open, applied, appendParam, removeParam, setApplied, setO
     >
         <ColorParam
             name="tint"
+            current={values.tint}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, tint: true });

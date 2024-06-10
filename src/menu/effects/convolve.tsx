@@ -1,6 +1,6 @@
 import { ArrayParam, Collapsable, NumericParam, SectionProps } from "..";
 
-export function Convolve({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Convolve({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Convolve"
         open={open.convolve}
@@ -8,6 +8,7 @@ export function Convolve({ open, applied, appendParam, removeParam, setApplied, 
     >
         <ArrayParam
             name="convolve.kernel"
+            current={values["convolve.kernel"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "convolve.kernel": true });
@@ -31,6 +32,7 @@ export function Convolve({ open, applied, appendParam, removeParam, setApplied, 
         ].map((key) => (
             <NumericParam
                 name={key}
+                current={values[key]}
                 appendParam={(param, value) => {
                     appendParam(param, value);
                     setApplied({ ...applied, [key]: true });

@@ -1,6 +1,6 @@
 import { Collapsable, NumericParam, SectionProps } from "..";
 
-export function Blur({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Blur({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Blur"
         open={open.blur}
@@ -8,6 +8,7 @@ export function Blur({ open, applied, appendParam, removeParam, setApplied, setO
     >
         <NumericParam
             name="blur"
+            current={values.blur}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, blur: true });

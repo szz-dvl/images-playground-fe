@@ -6,8 +6,9 @@ import { stringify, parse } from "querystring";
 function App() {
   const [width, height] = [1140, 640];
   const [image, setImage] = useState(
-    `http://localhost:3000/image/${width}x${height}/blank.png?text.text=No image uploaded ____\u2193____&text.width=550&text.height=550&text.rgba=true&resize.fit=fill`
+    `http://localhost:3000/image/${width}x${height}/blank.webp?text.text=No image uploaded ____\u2193____&text.width=550&text.height=550&text.rgba=true&resize.fit=fill`
   );
+  const [query, setQuery] = useState(parse(image.split("?").pop()!))
   
   const fileRef = useRef<HTMLInputElement>(null);
  
@@ -25,26 +26,36 @@ function App() {
 
       const { filename } = await response.json();
       setImage(`http://localhost:3000/image/${width}x${height}/${filename}?`);
+      setQuery({});
     }
   };
 
-  const appendParam = (name: string, value: string | Array<string>) => {
-    const rawQuery = image.split("?").pop()!;
-    const query = parse(rawQuery);
+
+
+  const appendParam = (name: string, value: string | Array<string>, generated?: boolean) => {
+    
     query[name] = value;
-    const imageUrl = image.split("?")[0]!;
+    let imageUrl = image.split("?")[0]!;
+    
+    if (generated) {
+      const parts = imageUrl.split("/");
+      parts.pop();
+      parts.push("generated.webp")
+      imageUrl = parts.join("/");
+    }
+
     setImage(`${imageUrl}?${stringify(query)}`)
+    setQuery(query);
   }
   
   const removeParam = (names: Array<string>) => {
-    const rawQuery = image.split("?").pop()!;
-    const query = parse(rawQuery);
-    
+  
     for (const name of names)
       delete query[name];
 
     const imageUrl = image.split("?")[0]!;
     setImage(`${imageUrl}?${stringify(query)}`)
+    setQuery(query);
   }
 
   return (
@@ -58,7 +69,7 @@ function App() {
         <p className="url"> {image} </p>
         <div className="editor">
           <div className="commands">
-            <Menu appendParam={appendParam} removeParam={removeParam}></Menu>
+            <Menu appendParam={appendParam} removeParam={removeParam} values={query}></Menu>
           </div>
           <img src={image} alt="Invalid parameters" height={height} width={width} />
         </div>

@@ -1,22 +1,25 @@
+import { ParsedUrlQuery } from "querystring";
 import React, { ReactNode, useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 
 export type SectionProps = {
   open: Record<string, boolean>,
   setOpen: (record: Record<string, boolean>) => void;
-  appendParam: (param: string, value: string | Array<string>) => void;
+  appendParam: (param: string, value: string | Array<string>, generated?: boolean) => void;
   removeParam: (param: Array<string>) => void;
   setApplied: (record: Record<string, boolean>) => void;
   applied: Record<string, boolean>
+  values: ParsedUrlQuery
 }
 
 export type ParamProps = {
-  appendParam: (param: string, value: string | Array<string>) => void;
+  appendParam: (param: string, value: string | Array<string>, generated?: boolean) => void;
   removeParam: (param: Array<string>) => void;
   mayApply: boolean;
   applied: boolean;
   name: string;
   required?: boolean;
+  current?: string | string[]
 };
 
 export function NumericParam({
@@ -26,8 +29,9 @@ export function NumericParam({
   mayApply,
   applied,
   required,
+  current
 }: ParamProps) {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(current ? Number(current) : 0);
 
   return applied ? (
     <span className="value-applied">
@@ -50,7 +54,8 @@ export function NumericParam({
         min={0}
         value={value}
         onChange={(ev) => {
-          setValue(Number(ev.target.value));
+          if (ev.target.value)
+            setValue(Number(ev.target.value));
         }}
       />
       <button
@@ -73,8 +78,9 @@ export function ColorParam({
   mayApply,
   applied,
   required,
+  current
 }: ParamProps) {
-  const [value, setValue] = useState("#000000");
+  const [value, setValue] = useState(current ? current.toString() : "#000000");
 
   return applied ? (
     <span className="value-applied">
@@ -120,8 +126,9 @@ export function StringParam({
   mayApply,
   applied,
   required,
+  current
 }: ParamProps) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(current || "");
 
   return applied ? (
     <span className="value-applied">
@@ -169,11 +176,12 @@ export function EnumParam({
   applied,
   options,
   required,
+  current
 }: EnumParamProps) {
-  const [value, setValue] = useState(options[0]);
+  const [value, setValue] = useState(current || options[0]);
 
   return (
-    <span className="value-unapplied">
+    <span className="value-applied">
       <label htmlFor={name}>{required ? <b> {name} </b> : name}: </label>
       <select onChange={(ev) => setValue(ev.target.value)} disabled={applied}>
         {options.map((opt) => (
@@ -202,8 +210,9 @@ export function ArrayParam({
   mayApply,
   applied,
   required,
+  current
 }: ParamProps) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(current ? current.toString() : "");
 
   return applied ? (
     <span className="value-applied">
@@ -249,8 +258,9 @@ export function BooleanParam({
   mayApply,
   applied,
   required,
+  current
 }: ParamProps) {
-  const [value, setValue] = useState(false);
+  const [value, setValue] = useState(current ? current !== "false" : false);
 
   return (
     <span className="value-applied">

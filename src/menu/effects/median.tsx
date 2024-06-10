@@ -1,6 +1,6 @@
 import { Collapsable, NumericParam, SectionProps } from "..";
 
-export function Median({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Median({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Median"
         open={open.median}
@@ -8,6 +8,7 @@ export function Median({ open, applied, appendParam, removeParam, setApplied, se
     >
         <NumericParam
             name="median"
+            current={values.median}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, median: true });

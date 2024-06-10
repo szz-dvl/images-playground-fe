@@ -1,6 +1,6 @@
 import { BooleanParam, Collapsable, SectionProps } from "..";
 
-export function Grayscale({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Grayscale({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Grayscale"
         open={open.grayscale}
@@ -8,6 +8,7 @@ export function Grayscale({ open, applied, appendParam, removeParam, setApplied,
     >
         <BooleanParam
             name="grayscale"
+            current={values.grayscale}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, grayscale: true });

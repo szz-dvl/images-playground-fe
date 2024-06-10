@@ -1,6 +1,6 @@
 import { Collapsable, ColorParam, EnumParam, NumericParam, SectionProps } from "..";
 
-export function Extend({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Extend({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Extend"
         open={open.extend}
@@ -8,6 +8,7 @@ export function Extend({ open, applied, appendParam, removeParam, setApplied, se
     >
         <NumericParam
             name="extend"
+            current={values.extend}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, extend: true });
@@ -28,6 +29,7 @@ export function Extend({ open, applied, appendParam, removeParam, setApplied, se
             (key) => (
                 <NumericParam
                     name={key}
+                    current={values[key]}
                     appendParam={(param, value) => {
                         appendParam(param, value);
                         setApplied({ ...applied, [key]: true });
@@ -46,6 +48,7 @@ export function Extend({ open, applied, appendParam, removeParam, setApplied, se
         )}
         <EnumParam
             name="extend.extendWith"
+            current={values["extend.extendWith"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "extend.extendWith": true });
@@ -63,6 +66,7 @@ export function Extend({ open, applied, appendParam, removeParam, setApplied, se
         />
         <ColorParam
             name="extend.background"
+            current={values["extend.background"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "extend.background": true });

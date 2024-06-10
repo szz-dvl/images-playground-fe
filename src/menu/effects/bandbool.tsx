@@ -1,6 +1,6 @@
 import { Collapsable, EnumParam, SectionProps } from "..";
 
-export function Bandbool({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Bandbool({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Bandbool"
         open={open.bandbool}
@@ -8,6 +8,7 @@ export function Bandbool({ open, applied, appendParam, removeParam, setApplied, 
     >
         <EnumParam
             name="bandbool"
+            current={values.bandbool}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, bandbool: true });

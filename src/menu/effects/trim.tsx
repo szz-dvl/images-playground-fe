@@ -1,6 +1,6 @@
 import { BooleanParam, Collapsable, ColorParam, EnumParam, NumericParam, SectionProps } from "..";
 
-export function Trim({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Trim({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Trim"
         open={open.trim}
@@ -8,6 +8,7 @@ export function Trim({ open, applied, appendParam, removeParam, setApplied, setO
     >
         <ColorParam
             name="trim.background"
+            current={values["trim.background"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "trim.background": true });
@@ -24,6 +25,7 @@ export function Trim({ open, applied, appendParam, removeParam, setApplied, setO
         />
         <NumericParam
             name="trim.threshold"
+            current={values["trim.threshold"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "trim.threshold": true });
@@ -40,6 +42,7 @@ export function Trim({ open, applied, appendParam, removeParam, setApplied, setO
         />
         <BooleanParam
             name="trim.lineArt"
+            current={values["trim.lineArt"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "trim.lineArt": true });

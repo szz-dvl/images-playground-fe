@@ -1,6 +1,6 @@
 import { Collapsable, ColorParam, NumericParam, SectionProps } from "..";
 
-export function Rotate({ open, applied, appendParam, removeParam, setApplied, setOpen, after }: SectionProps & { after?: boolean }) {
+export function Rotate({ open, applied, appendParam, removeParam, setApplied, setOpen, after, values }: SectionProps & { after?: boolean }) {
 
     const key = after ? "rotateAfter" : "rotate";
 
@@ -11,6 +11,7 @@ export function Rotate({ open, applied, appendParam, removeParam, setApplied, se
     >
         <NumericParam
             name={key}
+            current={values[key]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, [key]: true });
@@ -29,6 +30,7 @@ export function Rotate({ open, applied, appendParam, removeParam, setApplied, se
         />
         <ColorParam
             name={key + ".background"}
+            current={values[key + ".background"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, [key + ".background"]: true });

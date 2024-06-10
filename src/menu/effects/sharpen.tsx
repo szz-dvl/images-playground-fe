@@ -1,6 +1,6 @@
 import { BooleanParam, Collapsable, NumericParam, SectionProps } from "..";
 
-export function Sharpen({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Sharpen({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Sharpen"
         open={open.sharpen}
@@ -8,6 +8,7 @@ export function Sharpen({ open, applied, appendParam, removeParam, setApplied, s
     >
         <BooleanParam
             name="sharpen"
+            current={values.sharpen}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, sharpen: true });
@@ -39,6 +40,7 @@ export function Sharpen({ open, applied, appendParam, removeParam, setApplied, s
         />
         <NumericParam
             name="sharpen.sigma"
+            current={values["sharpen.sigma"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "sharpen.sigma": true });
@@ -75,6 +77,7 @@ export function Sharpen({ open, applied, appendParam, removeParam, setApplied, s
         ].map((key) => (
             <NumericParam
                 name={key}
+                current={values[key]}
                 appendParam={(param, value) => {
                     appendParam(param, value);
                     setApplied({ ...applied, [key]: true });

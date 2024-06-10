@@ -1,6 +1,6 @@
 import { BooleanParam, Collapsable, SectionProps } from "..";
 
-export function RemoveAlpha({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function RemoveAlpha({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="RemoveAlpha"
         open={open.removeAlpha}
@@ -8,6 +8,7 @@ export function RemoveAlpha({ open, applied, appendParam, removeParam, setApplie
     >
         <BooleanParam
             name="removeAlpha"
+            current={values.removeAlpha}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, removeAlpha: true });

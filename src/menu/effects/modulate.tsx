@@ -1,6 +1,6 @@
 import { Collapsable, NumericParam, SectionProps } from "..";
 
-export function Modulate({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Modulate({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Modulate"
         open={open.modulate}
@@ -14,6 +14,7 @@ export function Modulate({ open, applied, appendParam, removeParam, setApplied, 
         ].map((key) => (
             <NumericParam
                 name={key}
+                current={values[key]}
                 appendParam={(param, value) => {
                     appendParam(param, value);
                     setApplied({ ...applied, [key]: true });

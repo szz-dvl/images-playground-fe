@@ -1,6 +1,6 @@
 import { BooleanParam, Collapsable, ColorParam, SectionProps } from "..";
 
-export function Unflatten({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Unflatten({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Unflatten"
         open={open.unflatten}
@@ -8,6 +8,7 @@ export function Unflatten({ open, applied, appendParam, removeParam, setApplied,
     >
         <BooleanParam
             name="unflatten"
+            current={values.unflatten}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, unflatten: true });

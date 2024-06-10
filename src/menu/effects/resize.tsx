@@ -1,6 +1,6 @@
 import { BooleanParam, Collapsable, ColorParam, EnumParam, NumericParam, SectionProps } from "..";
 
-export function Resize({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Resize({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Resize"
         open={open.resize}
@@ -9,6 +9,7 @@ export function Resize({ open, applied, appendParam, removeParam, setApplied, se
         {["resize.width", "resize.height"].map((key) => (
             <NumericParam
                 name={key}
+                current={values[key]}
                 appendParam={(param, value) => {
                     appendParam(param, value);
                     setApplied({ ...applied, [key]: true });
@@ -26,6 +27,7 @@ export function Resize({ open, applied, appendParam, removeParam, setApplied, se
         ))}
         <EnumParam
             name="resize.fit"
+            current={values["resize.fit"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "resize.fit": true });
@@ -43,6 +45,7 @@ export function Resize({ open, applied, appendParam, removeParam, setApplied, se
         />
         <EnumParam
             name="resize.position"
+            current={values["resize.position"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "resize.position": true });
@@ -70,6 +73,7 @@ export function Resize({ open, applied, appendParam, removeParam, setApplied, se
         />
         <ColorParam
             name="resize.background"
+            current={values["resize.background"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "resize.background": true });
@@ -83,6 +87,7 @@ export function Resize({ open, applied, appendParam, removeParam, setApplied, se
         />
         <EnumParam
             name="resize.kernel"
+            current={values["resize.kernel"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "resize.kernel": true });
@@ -112,6 +117,7 @@ export function Resize({ open, applied, appendParam, removeParam, setApplied, se
         ].map((key) => (
             <BooleanParam
                 name={key}
+                current={values[key]}
                 appendParam={(param, value) => {
                     appendParam(param, value);
                     setApplied({ ...applied, [key]: true });

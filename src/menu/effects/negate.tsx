@@ -1,6 +1,6 @@
 import { BooleanParam, Collapsable, SectionProps } from "..";
 
-export function Negate({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Negate({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Negate"
         open={open.negate}
@@ -8,6 +8,7 @@ export function Negate({ open, applied, appendParam, removeParam, setApplied, se
     >
         <BooleanParam
             name="negate"
+            current={values.negate}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, negate: true });
@@ -26,6 +27,7 @@ export function Negate({ open, applied, appendParam, removeParam, setApplied, se
         />
         <BooleanParam
             name="negate.alpha"
+            current={values["negate.alpha"]}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, "negate.alpha": true });

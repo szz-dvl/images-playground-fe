@@ -1,3 +1,4 @@
+import { ParsedUrlQuery } from "querystring";
 import React, { useState } from "react";
 import {
   Affine,
@@ -38,9 +39,10 @@ import "./Menu.css";
 type MenuProps = {
   appendParam: (param: string, value: string | Array<string>) => void;
   removeParam: (param: Array<string>) => void;
+  values: ParsedUrlQuery
 };
 
-export function Menu({ appendParam, removeParam }: MenuProps) {
+export function Menu({ appendParam, removeParam, values }: MenuProps) {
   const [open, setOpen] = useState<Record<string, boolean>>({
     rotate: false,
     rotateAfter: false,
@@ -183,40 +185,40 @@ export function Menu({ appendParam, removeParam }: MenuProps) {
 
   return (
     <nav>
-      <Resize open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Extend open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Extract open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Extract after open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Trim open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Rotate open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Rotate after open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Flip open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Flop open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Affine open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Sharpen open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Median open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Blur open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Flatten open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Unflatten open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Gamma open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Negate open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Normalise open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Clahe open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Convolve open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Threshold open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Linear open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Recomb open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Modulate open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Tint open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Grayscale open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <PipelineColorspace open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <ToColorspace open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <RemoveAlpha open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <EnsureAlpha open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <ExtractChannel open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Bandbool open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Text open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
-      <Create open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} />
+      <Resize open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Extend open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Extract open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Extract after open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Trim open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Rotate open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Rotate after open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Flip open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Flop open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Affine open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Sharpen open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Median open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Blur open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Flatten open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Unflatten open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Gamma open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Negate open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Normalise open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Clahe open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Convolve open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Threshold open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Linear open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Recomb open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Modulate open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Tint open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Grayscale open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <PipelineColorspace open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <ToColorspace open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <RemoveAlpha open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <EnsureAlpha open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <ExtractChannel open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Bandbool open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Text open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
+      <Create open={open} setOpen={setOpen} applied={applied} setApplied={setApplied} appendParam={appendParam} removeParam={removeParam} values={values} />
     </nav>
   );
 }

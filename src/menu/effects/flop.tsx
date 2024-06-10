@@ -1,6 +1,6 @@
 import { BooleanParam, Collapsable, SectionProps } from "..";
 
-export function Flop({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Flop({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Flop"
         open={open.flop}
@@ -8,6 +8,7 @@ export function Flop({ open, applied, appendParam, removeParam, setApplied, setO
     >
         <BooleanParam
             name="flop"
+            current={values.flop}
             appendParam={(param, value) => {
                 appendParam(param, value);
                 setApplied({ ...applied, flop: true });

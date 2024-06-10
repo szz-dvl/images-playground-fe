@@ -1,6 +1,6 @@
 import { Collapsable, ColorParam, EnumParam, SectionProps, NumericParam } from "..";
 
-export function Create({ open, applied, appendParam, removeParam, setApplied, setOpen }: SectionProps) {
+export function Create({ open, applied, appendParam, removeParam, setApplied, setOpen, values }: SectionProps) {
     return <Collapsable
         section="Create"
         open={open.create}
@@ -11,8 +11,9 @@ export function Create({ open, applied, appendParam, removeParam, setApplied, se
             ["create.width", "create.height", "create.channels", "create.noise.mean", "create.noise.sigma"].map(key =>
                 <NumericParam
                     name={key}
+                    current={values[key]}
                     appendParam={(param, value) => {
-                        appendParam(param, value);
+                        appendParam(param, value, true);
                         setApplied({ ...applied, [key]: true });
                     }}
                     removeParam={(param) => {
@@ -28,8 +29,9 @@ export function Create({ open, applied, appendParam, removeParam, setApplied, se
         }
         <EnumParam
             name="create.noise.type"
+            current={values["create.noise.type"]}
             appendParam={(param, value) => {
-                appendParam(param, value);
+                appendParam(param, value, true);
                 setApplied({ ...applied, "create.noise.type": true });
             }}
             removeParam={(param) => {
@@ -47,8 +49,9 @@ export function Create({ open, applied, appendParam, removeParam, setApplied, se
         />
         <ColorParam
             name="create.background"
+            current={values["create.background"]}
             appendParam={(param, value) => {
-                appendParam(param, value);
+                appendParam(param, value, true);
                 setApplied({ ...applied, "create.background": true });
             }}
             removeParam={(param) => {

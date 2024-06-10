@@ -1,6 +1,6 @@
 import { Collapsable, NumericParam, SectionProps } from "..";
 
-export function Extract({ open, applied, appendParam, removeParam, setApplied, setOpen, after }: SectionProps & { after?: boolean }) {
+export function Extract({ open, applied, appendParam, removeParam, setApplied, setOpen, after, values }: SectionProps & { after?: boolean }) {
 
     const key = after ? "extractAfter" : "extract";
 
@@ -13,6 +13,7 @@ export function Extract({ open, applied, appendParam, removeParam, setApplied, s
             (key) => (
                 <NumericParam
                     name={key}
+                    current={values[key]}
                     appendParam={(param, value) => {
                         appendParam(param, value);
                         setApplied({ ...applied, [key]: true });
