@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import "./App.css";
 import { Menu } from "./menu/Menu";
 import { stringify, parse } from "querystring";
+import md5 from "md5";
 
 function App() {
   const [width, height] = [1140, 640];
@@ -29,8 +30,6 @@ function App() {
       setQuery({});
     }
   };
-
-
 
   const appendParam = (name: string, value: string | Array<string>, generated?: boolean) => {
     
@@ -69,7 +68,7 @@ function App() {
         <p className="url"> {image} </p>
         <div className="editor">
           <div className="commands">
-            <Menu appendParam={appendParam} removeParam={removeParam} values={query}></Menu>
+            <Menu key={md5(image.split("?")[0]!)} appendParam={appendParam} removeParam={removeParam} values={query}></Menu>
           </div>
           <img src={image} alt="Invalid parameters" height={height} width={width} />
         </div>

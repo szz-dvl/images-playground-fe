@@ -185,7 +185,7 @@ export function EnumParam({
       <label htmlFor={name}>{required ? <b> {name} </b> : name}: </label>
       <select onChange={(ev) => setValue(ev.target.value)} disabled={applied}>
         {options.map((opt) => (
-          <option value={opt}> {opt} </option>
+          <option value={opt} selected={opt === value}> {opt} </option>
         ))}
       </select>
       <button
