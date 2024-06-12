@@ -22,15 +22,27 @@
     cursor: pointer;
 }
 
+.value-applied {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.value-unapplied {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 .value-applied label {
     font-size: small;
-    min-width: 200px;
+    min-width: 180px;
     text-align: end;
 }
 
 .value-unapplied label {
     font-size: small;
-    min-width: 200px;
+    min-width: 180px;
     text-align: end;
 }
 
@@ -43,27 +55,19 @@
 }
 
 .value-applied select {
-    min-width: 100px;
+    min-width: 110px
 }
 
 .value-unapplied select {
-    min-width: 100px;
-}
-
-.value-applied {
-    display: flex;
-    justify-content: space-between;
-}
-
-.value-unapplied {
-    display: flex;
-    justify-content: space-between;
+    min-width: 110px;
 }
 
 .value-applied button {
     min-width: 80px;
+    align-self: flex-end;
 }
 
 .value-unapplied button {
     min-width: 80px;
+    align-self: flex-end;
 }

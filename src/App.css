@@ -50,8 +50,8 @@
 }
 
 .commands {
-  min-width: 360px;
-  min-height: 420px;
+  min-width: 380px;
+  min-height: 640px;
   /* border: 1px solid red; */
   overflow-y: auto;
   max-height: 640px;
